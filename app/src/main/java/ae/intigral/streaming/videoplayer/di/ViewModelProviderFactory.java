@@ -1,4 +1,4 @@
-package ae.emaratech.loginmodule.di;
+package ae.intigral.streaming.videoplayer.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

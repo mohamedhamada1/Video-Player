@@ -7,6 +7,14 @@
         <variable
             name="loading"
             type="Boolean" />
+
+        <variable
+            name="noInternet"
+            type="Boolean" />
+
+        <variable
+            name="callback"
+            type="ae.intigral.streaming.videoplayer.callback.RetryCallback" />
     </data>
 
     <FrameLayout
@@ -28,6 +36,16 @@
 
             android:layout_gravity="center"
             app:visibleGone="@{loading}" />
+
+        <include
+            layout="@layout/no_internet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:callback="@{() -> callback.retry()}"
+            app:noInternet="@{noInternet}"
+
+            />
 
     </FrameLayout>
 </layout>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ae.emaratech.loginmodule.di;
+package ae.intigral.streaming.videoplayer.di;
 
 /**
  * Marks an activity / fragment injectable.

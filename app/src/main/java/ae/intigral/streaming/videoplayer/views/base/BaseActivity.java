@@ -14,17 +14,15 @@
  *  limitations under the License
  */
 
-package ae.emaratech.loginmodule.views.base;
+package ae.intigral.streaming.videoplayer.views.base;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -38,20 +36,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import ae.emaratech.loginmodule.R;
-import ae.emaratech.loginmodule.utils.LocaleManager;
-import ae.emaratech.loginmodule.utils.NetworkUtils;
+
+import ae.intigral.streaming.videoplayer.R;
+import ae.intigral.streaming.videoplayer.utils.NetworkUtils;
 import dagger.android.AndroidInjection;
-import ae.emaratech.loginmodule.utils.CommonUtils;
 
-public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity  implements BaseFragment.Callback{
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleManager.setLocale(base));
-    }
+/**
+ * this should has all common methods for activity
+ * handling progress loading, binding views ,init Dependency injection replace fragments methods etc
+ * in real app I will have same idea for Fragment (Base Fragment) and for Dialog (Base Dialog) and for RecyclerViewHolder
+ * to handle DI and view binding
+ *
+ * @param <T>
+ * @param <V>
+ */
+public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewModel> extends AppCompatActivity {
 
-    // TODO
     // this can probably depend on isLoading variable of BaseViewModel,
     // since its going to be common for all the activities
     private ProgressDialog mProgressDialog;
@@ -73,15 +73,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         mViewDataBinding.executePendingBindings();
 
     }
-    @Override
-    public void onFragmentAttached() {
 
-    }
-
-    @Override
-    public void onFragmentDetached(String tag) {
-
-    }
 
     @TargetApi(Build.VERSION_CODES.M)
     public void requestPermissionsSafely(String[] permissions, int requestCode) {
@@ -97,49 +89,13 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
 
-
-    public void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    public void openActivityOnTokenExpire() {
-        //   startActivity(LoginActivity.getStartIntent(this));
-        finish();
-    }
-
     public boolean isNetworkConnected() {
         return NetworkUtils.isConnected(getApplicationContext());
     }
 
-    public void showLoading() {
-        hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(this);
-    }
-
-    public void hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.cancel();
-        }
-    }
-
-    public void showSnackMessage(View parentView, String message, int length) {
-        Snackbar.make(parentView, message, length)
-                .setAction(getResources().getString(R.string.Close), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
-                })
-                .show();
-    }
 
     public void showSnackMessage(String message) {
         if (message != null)
-            Log.d("error_log", message);
         Snackbar.make(findViewById(R.id.container), message, Snackbar.LENGTH_SHORT)
                 .setAction(getResources().getString(R.string.Close), new View.OnClickListener() {
                     @Override
@@ -148,31 +104,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 })
                 .show();
     }
-
-
-
-    public String getCurrentLanguage() {
-        return LocaleManager.getLanguage(this);
-    }
-
-    public AlertDialog.Builder createAlertMsg(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.app_name);
-        builder.setMessage(message);
-        builder.setCancelable(false);
-        return builder;
-    }
-
-    public AlertDialog.Builder createAlertMsg(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setCancelable(false);
-        return builder;
-    }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -184,35 +115,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    public void replaceCurrentFragment(int targetContainer, Fragment targetFragment, boolean addToBackStack, boolean animate) {
-        FragmentManager manager = getSupportFragmentManager();
-        boolean fragmentPopped = false;
-        fragmentPopped = manager.popBackStackImmediate(targetFragment
-                .getClass().getName(), 0);
-        if (!fragmentPopped
-                && manager.findFragmentByTag(targetFragment.getClass()
-                .getName()) == null) { // fragment
-            FragmentTransaction ft = manager.beginTransaction();
-            if (animate)
-                ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out
-                        , android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-            ft.replace(targetContainer, targetFragment, targetFragment.getClass()
-                    .getName());
-            if (addToBackStack) {
-                ft.addToBackStack(targetFragment.getClass().getName());
-            }
-            ft.commit();
-        }
-    }
-
-    public void replaceCurrentFragment(Fragment targetFragment,
-                                       boolean addToBackStack, boolean animate) {
-        replaceCurrentFragment(R.id.container, targetFragment, addToBackStack, animate);
-    }
-
 
     public T getViewDataBinding() {
         return mViewDataBinding;

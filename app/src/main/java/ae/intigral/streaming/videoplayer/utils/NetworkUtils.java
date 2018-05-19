@@ -14,20 +14,11 @@
  *  limitations under the License
  */
 
-package ae.emaratech.shari.utils;
+package ae.intigral.streaming.videoplayer.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import ae.emaratech.shari.MyApplication;
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public final class NetworkUtils {
 

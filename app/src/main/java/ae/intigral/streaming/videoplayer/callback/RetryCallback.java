@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ae.emaratech.shari.views.callback;
+package ae.intigral.streaming.videoplayer.callback;
 
 /**
  * Generic interface for retry buttons.

@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package ae.emaratech.loginmodule.views.base;
+package ae.intigral.streaming.videoplayer.views.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

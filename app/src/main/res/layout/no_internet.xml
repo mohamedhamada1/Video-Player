@@ -19,81 +19,46 @@
 
     <data>
 
-
         <variable
             name="callback"
-            type="ae.emaratech.shari.views.callback.RetryCallback" />
+            type="ae.intigral.streaming.videoplayer.callback.RetryCallback" />
 
         <variable
-            name="resultCount"
-            type="Integer" />
-
-        <variable
-            name="noResultMessage"
-            type="String" />
+            name="noInternet"
+            type="Boolean" />
     </data>
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:gravity="center">
+        android:gravity="center"
+        app:visibleGone="@{noInternet}">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="@dimen/_10sdp"
-            app:visibleGone="@{resource.data == null}">
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:visibleGone="@{resource.status == Status.LOADING}" />
+            android:padding="10dp">
 
             <Button
                 android:id="@+id/retry"
-                style="@style/buttonPrimaryStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/dubai_font"
                 android:onClick="@{() -> callback.retry()}"
-                android:text="@string/retry"
-                app:visibleGone="@{resource.status == Status.ERROR}" />
+                android:text="@string/retry" />
 
             <TextView
                 android:id="@+id/error_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:fontFamily="@font/dubai_font"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/white"
                 android:gravity="center"
-                android:text="@{resource.message ?? @string/Something_went_wrong}"
-                android:textSize="@dimen/medium_txt_size"
-                app:visibleGone="@{resource.status == Status.ERROR}" />
+                android:text="@string/no_internet_connection" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/no_data_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:visibleGone="@{resource.status == Status.SUCCESS  &amp;&amp; resource.throwable == null &amp;&amp;  resultCount==0}">
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@{noResultMessage ?? @string/No_Products}"
-                android:textStyle="bold"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </LinearLayout>
     </FrameLayout>
 </layout>
 

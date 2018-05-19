@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ae.emaratech.loginmodule.di;
+package ae.intigral.streaming.videoplayer.di;
 
 import android.app.Activity;
 import android.app.Application;
@@ -23,9 +23,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
-
-import ae.emaratech.loginmodule.MyApplication;
-import ae.emaratech.loginmodule.di.Injectable;
+import ae.intigral.streaming.videoplayer.MyApplication;
+import ae.intigral.streaming.videoplayer.di.component.DaggerAppComponent;
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;

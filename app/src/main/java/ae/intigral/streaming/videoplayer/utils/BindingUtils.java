@@ -14,24 +14,12 @@
  *  limitations under the License
  */
 
-package ae.emaratech.shari.utils;
+package ae.intigral.streaming.videoplayer.utils;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.os.Build;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
+
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
-
-import ae.emaratech.shari.R;
-import ezy.ui.view.NumberStepper;
 
 /**
  * Created by amitshekhar on 11/07/17.
@@ -43,44 +31,10 @@ public final class BindingUtils {
         // This class is not publicly instantiable
     }
 
-    @BindingAdapter("android:src")
-    public static void setImageUrl(ImageView imageView, String url) {
-        Context context = imageView.getContext();
-        Glide.with(context).load(url).into(imageView);
-    }
-
-    @BindingAdapter("android:roundedsrc")
-    public static void setRoundedImageUrl(ImageView imageView, String url) {
-        Context context = imageView.getContext();
-        Glide.with(context).load(url).placeholder(R.drawable.no_image).error(R.drawable.no_image).bitmapTransform(new RoundedCornersTransformation(context, 3, 0)).into(imageView);
-    }
-
-    @BindingAdapter("android:srcwithplaceholder")
-    public static void setImageWithPlaceHolderUrl(ImageView imageView, String url) {
-        Context context = imageView.getContext();
-        Glide.with(context).load(url).placeholder(R.drawable.no_image).error(R.drawable.no_image).into(imageView);
-    }
-
     @BindingAdapter("visibleGone")
     public static void showHide(View view, boolean show) {
         view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    @BindingAdapter("visibleInvisible")
-    public static void visibleInvisible(View view, boolean show) {
-        view.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-    }
 
-    @BindingAdapter("android:htmltxt")
-    public static void setTextWithHtml(TextView textView, String desc) {
-        if (desc == null) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            textView.setText(Html.fromHtml(desc, Html.FROM_HTML_MODE_COMPACT));
-        else
-            textView.setText(Html.fromHtml(desc));
-    }
-
-    @BindingAdapter("android:customNumStars")
-    public static void setNumOfStarsForRatingBar(RatingBar ratingBar, float stars) {
-    }
 }

@@ -1,4 +1,4 @@
-package ae.intigral.streaming.videoplayer.views.models;
+package ae.intigral.streaming.videoplayer.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -25,6 +25,25 @@ public class Player {
     private int xCoordinate;
     @SerializedName("YCoordinate")
     private int yCoordinate;
+
+
+    @Override
+    public int hashCode() {
+        return (int) id;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Player other = (Player) obj;
+        return id == other.id;
+
+    }
 
 
 }

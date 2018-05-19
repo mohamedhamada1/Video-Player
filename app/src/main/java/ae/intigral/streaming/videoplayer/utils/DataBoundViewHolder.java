@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ae.emaratech.shari.utils;
+package ae.intigral.streaming.videoplayer.utils;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
