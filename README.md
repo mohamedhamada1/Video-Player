@@ -1,10 +1,13 @@
 "# Video-Player"
+
 features
+
 -using exoplayer Api to stream video
 - handle change configuration
 - start from any position
 
 -I use MVVM and android architcure component for design pattern , databinding , dagger2,
+
 -I use Junit and Robolectric for test
 
 project structure
@@ -27,10 +30,14 @@ as I'm using MVVM so I have main packages are
 videoPlayerModule :- this is class to provide instance as I'm using dagger
 
 others packages
+
 di :- utils class for dagger
 callback:- it has callback class to communicate between layout and controller
 
 
 test
-I have test this app on s7 , s8 and emulator for tablet
-I did some test case using Robolectric for VideoPlayerActivity to check configuration for different mobile and tablet
+
+I have test this app on s7 , s8 and emulator for tablet.
+
+I did some test case using Robolectric for VideoPlayerActivity to check configuration for different mobile and tablet.
+
